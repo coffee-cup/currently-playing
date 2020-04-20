@@ -2,7 +2,7 @@
 
 Shows you what is currently playing on Spotify. Why? Because I wanted to experiement with the API :D. Deployed to [currently-playing.now.sh](https://currently-playing.now.sh).
 
-<img width="1172" alt="image" src="https://user-images.githubusercontent.com/3044853/79784577-5ffd5080-833a-11ea-80c8-920cbcb2ccea.png">
+<img width="1180" alt="image" src="https://user-images.githubusercontent.com/3044853/79785581-fda54f80-833b-11ea-970d-f0b69e0d9137.png">
 
 ## Running Locally
 
