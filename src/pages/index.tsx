@@ -10,7 +10,10 @@ import { Track } from "../types";
 import Link from "../components/Link";
 
 const useColors = (image?: string): { c1: string; c2: string } | null => {
-  const [colors, setColors] = useState<{ c1: string; c2: string } | null>(null);
+  const [colors, setColors] = useState<{ c1: string; c2: string }>({
+    c1: "deeppink",
+    c2: "orange",
+  });
 
   useEffect(() => {
     if (image == null) {
@@ -90,13 +93,13 @@ const Home = () => {
               ? `linear-gradient(to bottom right, ${colors.c1}, ${colors.c2})`
               : "transparent",
           backgroundSize: "200% 200%",
-          animation: "grad 30s ease infinite",
+          animation: "grad 15s ease infinite",
           backgroundPosition: "0% 0%",
 
           "@keyframes grad": {
-            "0%": { backgroundPosition: "0% 0%" },
-            "50%": { backgroundPosition: "50% 50%" },
-            "100%": { backgroundPosition: "0% 0%" },
+            "0%": { backgroundPosition: "42% 0%" },
+            "50%": { backgroundPosition: "59% 100%" },
+            "100%": { backgroundPosition: "42% 0%" },
           },
         }}
       >
@@ -105,9 +108,6 @@ const Home = () => {
 
           {user == null && !loading && !hasToken && (
             <Box sx={{ minWidth: "measure" }}>
-              <Text variant="display" pb={4}>
-                Please login
-              </Text>
               <LoginWithSpotify />
             </Box>
           )}
@@ -115,7 +115,7 @@ const Home = () => {
           {user != null && !currentTrack.loading && (
             <Box>
               {currentTrack.data == null ? (
-                <Box>No track playing</Box>
+                <Text sx={{ fontSize: 4 }}>No track playing</Text>
               ) : (
                 <CurrentTrack track={currentTrack.data} />
               )}

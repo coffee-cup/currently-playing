@@ -103,7 +103,7 @@ const theme: Theme = {
   fontSizes: [12, 14, 16, 18, 24, 32, 48, 64, 96],
 
   sizes: {
-    container: "1200px",
+    container: "1400px",
     logList: "400px",
     measure: "32em",
     narrow: "22em",

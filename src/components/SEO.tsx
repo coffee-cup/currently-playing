@@ -8,8 +8,8 @@ export interface Props {
   description?: string;
 }
 
-const title = "Spotify Thing";
-const url = "";
+const title = "Currently Playing";
+const url = "https://currently-playing.now.sh";
 const description = "";
 const image = "";
 
@@ -34,7 +34,7 @@ const defaultConfig: DefaultSeoProps = {
   },
 };
 
-const SEO: React.FC<Props> = (props) => {
+const SEO: React.FC<Props> = props => {
   const title =
     props.title != null
       ? `${props.title} | ${defaultConfig.title}`

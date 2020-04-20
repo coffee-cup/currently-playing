@@ -7,7 +7,17 @@ const LoginWithSpotify: React.FC = () => {
   const { login } = useSpotify();
 
   return (
-    <Button sx={{ bg: "spotify" }} onClick={() => login()}>
+    <Button
+      sx={{
+        bg: "spotify",
+        fontSize: 3,
+
+        "&:hover,&:focus,&:active": {
+          bg: "black",
+        },
+      }}
+      onClick={() => login()}
+    >
       Login with Spotify
     </Button>
   );
