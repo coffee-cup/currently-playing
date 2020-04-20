@@ -10,5 +10,8 @@ export const scopes = [
 export const spotifyApi = new SpotifyWebApi({
   clientId: process.env.SPOTIFY_CLIENT_ID,
   clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-  redirectUri: "http://localhost:3000/auth",
+  redirectUri:
+    process.env.NODE_ENV === "production"
+      ? "https://currently-playing.now.sh/auth"
+      : "http://localhost:3000/auth",
 });
