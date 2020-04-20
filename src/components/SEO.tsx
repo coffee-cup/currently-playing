@@ -9,9 +9,9 @@ export interface Props {
 }
 
 const title = "Currently Playing";
-const url = "https://currently-playing.now.sh";
+const url = "https://currently-playing.now.sh/";
 const description = "";
-const image = "";
+const image = "https://currently-playing.now.sh/og.png";
 
 const defaultConfig: DefaultSeoProps = {
   title,
