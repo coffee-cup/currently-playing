@@ -1,0 +1,36 @@
+{
+  "name": "spotify-radio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@emotion/styled": "^10.0.27",
+    "@styled-system/css": "^5.1.5",
+    "@theme-ui/presets": "^0.3.0",
+    "localforage": "^1.7.3",
+    "node-vibrant": "^3.1.5",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-feather": "^2.0.4",
+    "spotify-web-api-node": "^4.0.0",
+    "theme-ui": "^0.3.1",
+    "use-async-effect": "^2.2.2"
+  },
+  "devDependencies": {
+    "@types/localforage": "^0.0.34",
+    "@types/next-seo": "^1.10.0",
+    "@types/node": "^13.11.1",
+    "@types/spotify-web-api-node": "^4.0.1",
+    "@types/styled-system": "^5.1.9",
+    "@types/styled-system__css": "^5.0.8",
+    "@types/theme-ui": "^0.3.1",
+    "next": "9.3.4",
+    "next-seo": "^4.4.0",
+    "prettier": "^2.0.4",
+    "typescript": "^3.8.3"
+  }
+}
