@@ -39,6 +39,7 @@ const useMe = (token: Token | null, reset: () => void) => {
         uri: result.body.uri,
       });
     } catch (e) {
+      console.log(e);
       reset();
     }
   }, [token]);
@@ -61,7 +62,7 @@ const useCurrentPlayback = (token: Token | null, reset: () => void) => {
       try {
         const { body } = await spotifyApi.getMyCurrentPlayingTrack();
 
-        if (body.item == null) {
+        if (body == null || body.item == null) {
           setTrack(dataValue(null));
           return;
         }
@@ -77,6 +78,7 @@ const useCurrentPlayback = (token: Token | null, reset: () => void) => {
           }),
         );
       } catch (e) {
+        console.log(e);
         reset();
       }
     };
