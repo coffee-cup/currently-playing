@@ -51,7 +51,7 @@ const CurrentTrack: React.FC<{ track: Track }> = ({ track }) => {
           src={track.image}
           sx={{
             maxWidth: "100%",
-            boxShadow: "#00000052 2px 2px 30px",
+            boxShadow: "#0000004a 2px 2px 30px",
           }}
         />
       </Link>
@@ -59,7 +59,10 @@ const CurrentTrack: React.FC<{ track: Track }> = ({ track }) => {
       <Flex sx={{ alignItems: "center" }}>
         <Box sx={{ maxWidth: "measure" }}>
           <Link href={track.url} variant="empty">
-            <Text sx={{ fontSize: [5, 5, 5, 6], fontWeight: "bold", pb: 2 }}>
+            <Text
+              sx={{ fontSize: [5, 5, 5, 6], fontWeight: "bold", pb: 3 }}
+              variant="heading"
+            >
               {track.name}
             </Text>
           </Link>
@@ -86,6 +89,15 @@ const Home = () => {
             colors != null
               ? `linear-gradient(to bottom right, ${colors.c1}, ${colors.c2})`
               : "transparent",
+          backgroundSize: "200% 200%",
+          animation: "grad 30s ease infinite",
+          backgroundPosition: "0% 0%",
+
+          "@keyframes grad": {
+            "0%": { backgroundPosition: "0% 0%" },
+            "50%": { backgroundPosition: "50% 50%" },
+            "100%": { backgroundPosition: "0% 0%" },
+          },
         }}
       >
         <Box sx={{ maxWidth: "container", mx: "auto", px: [3, 4] }}>
