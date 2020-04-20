@@ -20,13 +20,7 @@ const defaultConfig: DefaultSeoProps = {
     type: "website",
     url,
     site_name: title,
-    images: [
-      {
-        url: image,
-        width: 512,
-        height: 512,
-      },
-    ],
+    images: [{ url: image }],
   },
   twitter: {
     handle: "@chronicle_ink",
