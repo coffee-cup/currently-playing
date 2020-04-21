@@ -13,8 +13,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     spotifyApi.setRefreshToken(refreshToken);
     const result = await spotifyApi.refreshAccessToken();
 
-    throw new Error("shit");
-
     const token: Token = {
       accessToken: result.body.access_token,
       refreshToken: refreshToken,
