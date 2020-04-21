@@ -5,11 +5,14 @@ import { Token, User, Track, LoadingValue } from "../types";
 import { spotifyApi } from "../spotify";
 import useAsyncEffect from "use-async-effect";
 import { loadingValue, dataValue, errorValue } from "../utils";
+import useColors, { Colors } from "../hooks/use-colors";
+import SpotifyWebApi from "spotify-web-api-node";
 
 export interface SpotifyState {
   loading: boolean;
   user: User | null;
   currentTrack: LoadingValue<Track | null>;
+  colors: Colors | null;
   hasToken: boolean;
   getAndSaveToken: (code: string) => Promise<boolean>;
   login: () => void;
@@ -39,7 +42,6 @@ const useMe = (token: Token | null, reset: () => void) => {
         uri: result.body.uri,
       });
     } catch (e) {
-      console.log(e);
       reset();
     }
   }, [token]);
@@ -78,7 +80,6 @@ const useCurrentPlayback = (token: Token | null, reset: () => void) => {
           }),
         );
       } catch (e) {
-        console.log(e);
         reset();
       }
     };
@@ -96,26 +97,38 @@ const SpotifyProvider: React.FC = props => {
   const [loading, setLoading] = React.useState(true);
   const [token, setToken] = React.useState<Token | null>(null);
 
-  const resetToken = () => {
-    console.log("RESETING TOKEN");
-
-    setToken(null);
-    setLoading(false);
-    clearItem(tokenKey);
-  };
-
-  const user = useMe(token, resetToken);
-  const { track } = useCurrentPlayback(token, resetToken);
-
-  const getAndSaveToken = async (code: string) => {
-    const result = await api.getToken(code);
+  const saveAndSetToken = (result: api.Result<Token>): boolean => {
     if (result.success) {
       setToken(result.body);
       saveItem(tokenKey, result.body);
 
       spotifyApi.setAccessToken(result.body.accessToken);
       spotifyApi.setRefreshToken(result.body.refreshToken);
+    } else {
+      setToken(null);
     }
+
+    return result.success;
+  };
+
+  const resetToken = async () => {
+    if (token != null && token.refreshToken != null) {
+      const refreshResult = await api.refreshToken(token.refreshToken);
+      saveAndSetToken(refreshResult);
+    } else {
+      setToken(null);
+      // clearItem(tokenKey);
+    }
+  };
+
+  const user = useMe(token, resetToken);
+  const { track } = useCurrentPlayback(token, resetToken);
+
+  const colors = useColors(track?.data?.image);
+
+  const getAndSaveToken = async (code: string) => {
+    const result = await api.getToken(code);
+    saveAndSetToken(result);
 
     return result.success;
   };
@@ -125,9 +138,7 @@ const SpotifyProvider: React.FC = props => {
     const savedToken = getItem<Token | null>(tokenKey, null);
 
     if (savedToken != null) {
-      setToken(savedToken);
-      spotifyApi.setAccessToken(savedToken.accessToken);
-      spotifyApi.setRefreshToken(savedToken.refreshToken);
+      saveAndSetToken(api.success(savedToken));
     }
 
     setLoading(false);
@@ -144,6 +155,7 @@ const SpotifyProvider: React.FC = props => {
     loading,
     user,
     currentTrack: track,
+    colors,
     hasToken: token != null,
     login,
     getAndSaveToken,

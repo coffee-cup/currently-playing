@@ -12,13 +12,13 @@ export type Result<T> =
       body: null;
     };
 
-const error = <T>(error: string): Result<T> => ({
+export const error = <T>(error: string): Result<T> => ({
   success: false,
   error,
   body: null,
 });
 
-const success = <T>(body: T): Result<T> => ({
+export const success = <T>(body: T): Result<T> => ({
   success: true,
   error: null,
   body,
@@ -48,3 +48,8 @@ export const getAuthURL = (): Promise<Result<string>> =>
 
 export const getToken = async (code: string): Promise<Result<Token>> =>
   jsonRequest<Token>(`/api/auth-code?code=${code}`)();
+
+export const refreshToken = async (
+  refreshToken: string,
+): Promise<Result<Token>> =>
+  jsonRequest<Token>(`/api/refresh?refreshToken=${refreshToken}`)();

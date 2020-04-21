@@ -1,84 +1,103 @@
 /** @jsx jsx */
-import Vibrant from "node-vibrant";
-import { useEffect, useState } from "react";
-import { Box, Flex, jsx, Text } from "theme-ui";
+import { Box, Flex, jsx, Styled, Text } from "theme-ui";
 import Layout from "../components/Layout";
+import Link from "../components/Link";
 import { LoadingCenter } from "../components/Loading";
 import LoginWithSpotify from "../components/LoginWithSpotify";
 import { useSpotify } from "../providers/spotify";
 import { Track } from "../types";
-import Link from "../components/Link";
+import useBoxShadow from "../hooks/use-box-shadow";
+import { gradientCss } from "../utils";
 
-const useColors = (image?: string): { c1: string; c2: string } | null => {
-  const [colors, setColors] = useState<{ c1: string; c2: string }>({
-    c1: "deeppink",
-    c2: "orange",
-  });
+const Title: React.FC = props => (
+  <Text
+    as="h1"
+    sx={{ fontSize: [5, 5, 5, 6], fontWeight: "bold", pb: 2 }}
+    variant="heading"
+  >
+    {props.children}
+  </Text>
+);
 
-  useEffect(() => {
-    if (image == null) {
-      return;
-    }
-
-    Vibrant.from(image)
-      .getPalette()
-      .then(palette => {
-        if (
-          palette != null &&
-          palette.DarkVibrant != null &&
-          palette.DarkMuted != null &&
-          palette.LightVibrant != null
-        ) {
-          setColors({
-            c1: palette.LightVibrant.getHex(),
-            c2: palette.DarkVibrant.getHex(),
-          });
-        }
-      });
-  }, [image]);
-
-  return colors;
-};
+const Split: React.FC = props => (
+  <Box
+    sx={{
+      display: "grid",
+      gridTemplateColumns: ["1fr", "1fr 1fr"],
+      gap: [4, 4, 5, 5],
+    }}
+  >
+    {props.children}
+  </Box>
+);
 
 const CurrentTrack: React.FC<{ track: Track }> = ({ track }) => {
+  const shadow = useBoxShadow();
+
   return (
-    <Box
-      sx={{
-        display: "grid",
-        gridTemplateColumns: ["1fr", "1fr 1fr"],
-        gap: [4, 4, 5, 6],
-      }}
-    >
+    <Split>
       <Link href={track.url} variant="none">
         <img
           src={track.image}
           sx={{
             maxWidth: "100%",
-            boxShadow: "#0000004a 2px 2px 30px",
+            boxShadow: shadow,
+            borderRadius: 2,
           }}
         />
       </Link>
 
       <Flex sx={{ alignItems: "center" }}>
-        <Box sx={{ maxWidth: "measure" }}>
+        <Box sx={{ maxWidth: "measure", textShadow: "#00000030 2px 2px 5px" }}>
           <Link href={track.url} variant="empty">
-            <Text
-              sx={{ fontSize: [5, 5, 5, 6], fontWeight: "bold", pb: 3 }}
-              variant="heading"
-            >
-              {track.name}
-            </Text>
+            <Title>{track.name}</Title>
           </Link>
-          <Text>{track.artist}</Text>
+          <Text sx={{ fontWeight: "bold" }}>{track.artist}</Text>
         </Box>
       </Flex>
-    </Box>
+    </Split>
   );
 };
 
+const EmptyLayout: React.FC = props => {
+  const shadow = useBoxShadow();
+
+  return (
+    <Split>
+      <img
+        src="/empty.png"
+        sx={{
+          maxWidth: "100%",
+          boxShadow: shadow,
+          borderRadius: 2,
+        }}
+      />
+      <Flex sx={{ alignItems: "center" }}>
+        <Box>{props.children}</Box>
+      </Flex>
+    </Split>
+  );
+};
+
+const NoUser = () => (
+  <EmptyLayout>
+    <Title>Currently Playing</Title>
+    <Text sx={{ pb: 3 }}>
+      Login and the current playing song will appear. <br /> Magic.
+    </Text>
+    <LoginWithSpotify />
+  </EmptyLayout>
+);
+
+const NoTrack = () => (
+  <EmptyLayout>
+    <Title>Nothing Playing</Title>
+    <Styled.p>Play a song on Spotify to see the magic.</Styled.p>
+  </EmptyLayout>
+);
+
 const Home = () => {
-  const { user, loading, hasToken, currentTrack } = useSpotify();
-  const colors = useColors(currentTrack?.data?.image);
+  const { user, colors, loading, hasToken, currentTrack } = useSpotify();
 
   return (
     <Layout noHeader>
@@ -88,34 +107,19 @@ const Home = () => {
           alignItems: "center",
           minHeight: "100vh",
           width: "100%",
-          backgroundImage:
-            colors != null
-              ? `linear-gradient(to bottom right, ${colors.c1}, ${colors.c2})`
-              : "transparent",
-          backgroundSize: "200% 200%",
-          animation: "grad 15s ease infinite",
-          backgroundPosition: "0% 0%",
 
-          "@keyframes grad": {
-            "0%": { backgroundPosition: "42% 0%" },
-            "50%": { backgroundPosition: "59% 100%" },
-            "100%": { backgroundPosition: "42% 0%" },
-          },
+          ...(colors != null ? gradientCss(colors) : {}),
         }}
       >
         <Box sx={{ maxWidth: "container", mx: "auto", px: [3, 4] }}>
           {loading && <LoadingCenter />}
 
-          {user == null && !loading && !hasToken && (
-            <Box sx={{ minWidth: "measure" }}>
-              <LoginWithSpotify />
-            </Box>
-          )}
+          {user == null && !loading && !hasToken && <NoUser />}
 
           {user != null && !currentTrack.loading && (
             <Box>
               {currentTrack.data == null ? (
-                <Text sx={{ fontSize: 4 }}>No track playing</Text>
+                <NoTrack />
               ) : (
                 <CurrentTrack track={currentTrack.data} />
               )}

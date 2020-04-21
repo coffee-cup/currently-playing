@@ -66,7 +66,7 @@ const theme: Theme = {
   ...system,
   colors: {
     text: "white",
-    background: "#171717",
+    background: "deeppink",
     primary: "#D90368",
     secondary: "white",
     accent: "#fbba72",

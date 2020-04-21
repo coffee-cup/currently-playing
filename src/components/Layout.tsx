@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import * as React from "react";
 import { Box, jsx } from "theme-ui";
-import Footer from "./Footer";
-import Header from "./Header";
 import SEO from "./SEO";
+import { gradientCss } from "../utils";
+import { defaultColors } from "../hooks/use-colors";
 
 export interface Props {
   title?: string;
@@ -27,13 +27,11 @@ const Layout: React.FC<Props> = props => {
           className="main"
           sx={{
             minHeight: "100vh",
+            ...gradientCss(defaultColors),
           }}
         >
-          {!props.noHeader && <Header />}
           {props.children}
         </Box>
-
-        {/* <Footer /> */}
       </Box>
     </>
   );
