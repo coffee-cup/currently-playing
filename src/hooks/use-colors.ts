@@ -19,10 +19,10 @@ const useColors = (image?: string): Colors | null => {
       .then(palette => {
         if (palette != null) {
           const cs = [
-            palette?.DarkVibrant?.getHex(),
             palette?.DarkMuted?.getHex(),
-            palette?.LightMuted?.getHex(),
+            palette?.DarkVibrant?.getHex(),
             palette?.LightVibrant?.getHex(),
+            palette?.LightMuted?.getHex(),
           ].filter(Boolean) as Colors;
 
           setColors(cs);
