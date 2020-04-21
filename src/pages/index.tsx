@@ -52,7 +52,7 @@ const CurrentTrack: React.FC<{ track: Track }> = ({ track }) => {
           <Link href={track.url} variant="empty">
             <Title>{track.name}</Title>
           </Link>
-          <Text sx={{ fontWeight: "bold" }}>{track.artist}</Text>
+          <Text sx={{ fontWeight: "bold", fontSize: 4 }}>{track.artist}</Text>
         </Box>
       </Flex>
     </Split>
