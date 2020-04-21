@@ -48,11 +48,17 @@ const CurrentTrack: React.FC<{ track: Track }> = ({ track }) => {
       </Link>
 
       <Flex sx={{ alignItems: "center" }}>
-        <Box sx={{ maxWidth: "measure", textShadow: "#00000030 2px 2px 5px" }}>
+        <Box
+          sx={{
+            maxWidth: "measure",
+            color: "text",
+            textShadow: "#00000030 2px 2px 5px",
+          }}
+        >
           <Link href={track.url} variant="empty">
             <Title>{track.name}</Title>
           </Link>
-          <Text sx={{ fontWeight: "bold", fontSize: 4 }}>{track.artist}</Text>
+          <Text sx={{ fontWeight: "bold", fontSize: 5 }}>{track.artist}</Text>
         </Box>
       </Flex>
     </Split>
