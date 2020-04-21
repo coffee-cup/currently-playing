@@ -3,8 +3,8 @@ import Vibrant from "node-vibrant";
 
 export type Colors = string[];
 
-export const defaultColors = ["#f2709c", "#ff9472"];
-// export const defaultColors = ["#4BC0C8", "#C779D0", "#FEAC5E"];
+// export const defaultColors = ["#f2709c", "#ff9472"];
+export const defaultColors = ["#4BC0C8", "#C779D0", "#FEAC5E"];
 
 const useColors = (image?: string): Colors | null => {
   const [colors, setColors] = useState<Colors | null>(defaultColors);
