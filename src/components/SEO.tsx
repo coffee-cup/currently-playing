@@ -10,7 +10,8 @@ export interface Props {
 
 const title = "Currently Playing";
 const url = "https://currently-playing.now.sh/";
-const description = "";
+const description =
+  "Shows the current playing song on Spotify with beautiful dynamic gradient.";
 const image = "https://currently-playing.now.sh/og.png";
 
 const defaultConfig: DefaultSeoProps = {
@@ -23,7 +24,7 @@ const defaultConfig: DefaultSeoProps = {
     images: [{ url: image }],
   },
   twitter: {
-    handle: "@chronicle_ink",
+    handle: "@jakerunzer",
     cardType: "summary",
   },
 };
