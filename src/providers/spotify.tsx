@@ -56,7 +56,6 @@ const useCurrentPlayback = (token: Token | null, reset: () => void) => {
 
   React.useEffect(() => {
     if (token == null) {
-      setTrack(dataValue(null));
       return;
     }
 

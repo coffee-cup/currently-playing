@@ -115,7 +115,7 @@ const Home = () => {
 
           {currentTrack.data == null && !loading && !hasToken && <NoUser />}
 
-          {!currentTrack.loading && hasToken && (
+          {!currentTrack.loading && !loading && hasToken && (
             <Box>
               {currentTrack.data == null ? (
                 <NoTrack />
