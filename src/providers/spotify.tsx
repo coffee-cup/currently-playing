@@ -1,16 +1,15 @@
 import * as React from "react";
-import * as api from "../api";
-import { saveItem, getItem, clearItem } from "../local";
-import { Token, User, Track, LoadingValue } from "../types";
-import { spotifyApi } from "../spotify";
 import useAsyncEffect from "use-async-effect";
-import { loadingValue, dataValue, errorValue } from "../utils";
+import * as api from "../api";
 import useColors, { Colors } from "../hooks/use-colors";
-import SpotifyWebApi from "spotify-web-api-node";
+import { getItem, saveItem } from "../local";
+import { spotifyApi } from "../spotify";
+import { LoadingValue, Token, Track, User } from "../types";
+import { dataValue, loadingValue } from "../utils";
 
 export interface SpotifyState {
   loading: boolean;
-  user: User | null;
+  // user: User | null;
   currentTrack: LoadingValue<Track | null>;
   colors: Colors | null;
   hasToken: boolean;
@@ -57,6 +56,7 @@ const useCurrentPlayback = (token: Token | null, reset: () => void) => {
 
   React.useEffect(() => {
     if (token == null) {
+      setTrack(dataValue(null));
       return;
     }
 
@@ -121,7 +121,7 @@ const SpotifyProvider: React.FC = props => {
     }
   };
 
-  const user = useMe(token, resetToken);
+  // const user = useMe(token, resetToken);
   const { track } = useCurrentPlayback(token, resetToken);
 
   const colors = useColors(track?.data?.image);
@@ -153,7 +153,7 @@ const SpotifyProvider: React.FC = props => {
 
   const value: SpotifyState = {
     loading,
-    user,
+    // user,
     currentTrack: track,
     colors,
     hasToken: token != null,

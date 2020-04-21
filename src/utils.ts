@@ -27,9 +27,9 @@ export const createGradient = (colors: Colors): string =>
 
 export const gradientCss = (colors: Colors) => ({
   backgroundImage: colors != null ? createGradient(colors) : "transparent",
-  backgroundSize: "200% 200%",
-  animation: "grad 30s ease infinite",
-  backgroundPosition: "0% 0%",
+  backgroundSize: "250% 250%",
+  animation: "grad 40s ease infinite",
+  backgroundPosition: "50% 50%",
 
   "@keyframes grad": {
     "0%": { backgroundPosition: "42% 0%" },

@@ -84,7 +84,7 @@ const theme: Theme = {
     success: "green",
   },
 
-  breakpoints: ["40em", "52em", "64em"],
+  breakpoints: ["40em", "52em", "64em", "75em"],
 
   fontWeights: {
     body: 400,

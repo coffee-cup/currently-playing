@@ -12,7 +12,7 @@ import { gradientCss } from "../utils";
 const Title: React.FC = props => (
   <Text
     as="h1"
-    sx={{ fontSize: [5, 5, 5, 6], fontWeight: "bold", pb: 2 }}
+    sx={{ fontSize: [5, 5, 6, 6], fontWeight: "bold", pb: 2 }}
     variant="heading"
   >
     {props.children}
@@ -24,7 +24,7 @@ const Split: React.FC = props => (
     sx={{
       display: "grid",
       gridTemplateColumns: ["1fr", "1fr 1fr"],
-      gap: [4, 4, 5, 5],
+      gap: [4, 4, 5, 5, 6],
     }}
   >
     {props.children}
@@ -82,9 +82,7 @@ const EmptyLayout: React.FC = props => {
 const NoUser = () => (
   <EmptyLayout>
     <Title>Currently Playing</Title>
-    <Text sx={{ pb: 3 }}>
-      Login and the current playing song will appear. <br /> Magic.
-    </Text>
+    <Text sx={{ pb: 3 }}>Login and the current playing song will appear</Text>
     <LoginWithSpotify />
   </EmptyLayout>
 );
@@ -92,12 +90,12 @@ const NoUser = () => (
 const NoTrack = () => (
   <EmptyLayout>
     <Title>Nothing Playing</Title>
-    <Styled.p>Play a song on Spotify to see the magic.</Styled.p>
+    <Styled.p>Play a song on Spotify to see the magic</Styled.p>
   </EmptyLayout>
 );
 
 const Home = () => {
-  const { user, colors, loading, hasToken, currentTrack } = useSpotify();
+  const { colors, loading, hasToken, currentTrack } = useSpotify();
 
   return (
     <Layout noHeader>
@@ -107,6 +105,7 @@ const Home = () => {
           alignItems: "center",
           minHeight: "100vh",
           width: "100%",
+          py: 4,
 
           ...(colors != null ? gradientCss(colors) : {}),
         }}
@@ -114,9 +113,9 @@ const Home = () => {
         <Box sx={{ maxWidth: "container", mx: "auto", px: [3, 4] }}>
           {loading && <LoadingCenter />}
 
-          {user == null && !loading && !hasToken && <NoUser />}
+          {currentTrack.data == null && !loading && !hasToken && <NoUser />}
 
-          {user != null && !currentTrack.loading && (
+          {!currentTrack.loading && hasToken && (
             <Box>
               {currentTrack.data == null ? (
                 <NoTrack />

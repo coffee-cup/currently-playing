@@ -1,8 +1,6 @@
 import SpotifyWebApi from "spotify-web-api-node";
 
 export const scopes = [
-  "user-read-email",
-  "streaming",
   "user-read-playback-state",
   "user-read-currently-playing",
 ];
