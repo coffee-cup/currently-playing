@@ -12,6 +12,15 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+          <script
+            async
+            defer
+            src="https://cdn.simpleanalytics.io/hello.js"
+          ></script>
+          <noscript>
+            <img src="https://api.simpleanalytics.io/hello.gif" alt="" />
+          </noscript>
+
           <link
             rel="icon"
             type="image/png"
