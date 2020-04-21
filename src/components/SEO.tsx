@@ -11,7 +11,7 @@ export interface Props {
 const title = "Currently Playing";
 const url = "https://currently-playing.now.sh/";
 const description =
-  "Shows the current playing song on Spotify with beautiful dynamic gradient.";
+  "Shows the current playing song on Spotify with a dynamic gradient.";
 const image = "https://currently-playing.now.sh/og.png";
 
 const defaultConfig: DefaultSeoProps = {
