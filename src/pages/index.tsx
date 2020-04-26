@@ -117,7 +117,7 @@ const Home = () => {
         }}
       >
         <Box sx={{ maxWidth: "container", mx: "auto", px: [3, 4] }}>
-          {loading && <LoadingCenter />}
+          {(loading || currentTrack.loading) && <LoadingCenter />}
 
           {currentTrack.data == null && !loading && !hasToken && <NoUser />}
 
